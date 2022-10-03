@@ -84,9 +84,8 @@ export class BinarySearchTree {
     if (!curr.left || !curr.right) {
       let newNode: BTreeNode | undefined;
 
-      // assign newnode to matching side
-      if (curr.left === null) {
-        // no left side, assign to right
+      // assign newnode to match
+      if (!curr.left) {
         newNode = curr.right;
       } else {
         // no right side, assign to left

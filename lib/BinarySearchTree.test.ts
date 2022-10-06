@@ -33,12 +33,8 @@ Deno.test("findDepth 2", () => {
 });
 
 Deno.test("remove 1", () => {
-  const bst = new BinarySearchTree();
-  bst.insert(26);
-  bst.insert(82);
-  bst.insert(16);
-  bst.insert(92);
-  bst.insert(33);
+  // build from initial array - with duplicate
+  const bst = new BinarySearchTree([26, 82, 16, 92, 33, 33]);
   bst.remove(33);
   assertEquals(bst.inorder(), [16, 26, 82, 92]);
 });

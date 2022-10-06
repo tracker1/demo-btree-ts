@@ -8,7 +8,11 @@ export interface FindDeepestResult {
 export class BinarySearchTree {
   #root?: BTreeNode;
 
-  constructor() {}
+  constructor(values?: number[]) {
+    if (values?.length) {
+      this.insert(...values);
+    }
+  }
 
   /**
    * Read only reference to root node on the tree
@@ -22,8 +26,18 @@ export class BinarySearchTree {
    * (O(log n))
    * @param value numeric value to add
    */
-  insert(value: number): void {
-    var newNode = new BTreeNode(value);
+  insert(...values: number[]): void {
+    for (const value of values) {
+      this.#insert(new BTreeNode(value));
+    }
+  }
+
+  /**
+   * Insert node into the tree
+   * (O(log n))
+   * @param newNode node to add
+   */
+  #insert(newNode: BTreeNode): void {
     if (!this.#root) {
       this.#root = newNode;
       return;
@@ -32,6 +46,10 @@ export class BinarySearchTree {
     let curr = this.#root;
 
     while (curr) {
+      if (curr.value === newNode.value) {
+        // duplicate insert
+        return;
+      }
       if (curr.value > newNode.value) {
         if (!curr.left) {
           curr.left = newNode;
